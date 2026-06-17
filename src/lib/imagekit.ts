@@ -15,6 +15,11 @@ export interface ImageKitOptions {
 export const getImageKitUrl = (src: string | undefined, options: ImageKitOptions = {}): string => {
   if (!src) return 'https://placehold.co/600x400?text=No+Image';
 
+  // If it's a base64 data URL, return it directly
+  if (src.startsWith('data:')) {
+    return src;
+  }
+
   // Check if ImageKit URL endpoint is configured
   const endpoint = import.meta.env.VITE_IMAGEKIT_URL_ENDPOINT || 'https://ik.imagekit.io/demo';
   const cleanEndpoint = endpoint.endsWith('/') ? endpoint.slice(0, -1) : endpoint;
@@ -64,6 +69,7 @@ export const getImageKitUrl = (src: string | undefined, options: ImageKitOptions
  */
 export const getImageKitSrcSet = (src: string | undefined, sizes = [400, 800, 1200], aspectRatio?: number): string => {
   if (!src) return '';
+  if (src.startsWith('data:')) return `${src} 1200w`;
   return sizes
     .map((size) => {
       const opts: ImageKitOptions = { width: size };

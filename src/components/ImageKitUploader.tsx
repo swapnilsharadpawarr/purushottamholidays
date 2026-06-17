@@ -19,6 +19,50 @@ interface ImageKitUploaderProps {
   accept?: string;
 }
 
+// Helper to compress and convert image to base64 locally in the browser
+const compressImage = (file: File, maxWidth = 1200, maxHeight = 1200, quality = 0.75): Promise<string> => {
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onload = (event) => {
+      const img = new Image();
+      img.src = event.target?.result as string;
+      img.onload = () => {
+        const canvas = document.createElement('canvas');
+        let width = img.width;
+        let height = img.height;
+
+        // Calculate new dimensions to fit within maxWidth/maxHeight constraints
+        if (width > height) {
+          if (width > maxWidth) {
+            height = Math.round((height * maxWidth) / width);
+            width = maxWidth;
+          }
+        } else {
+          if (height > maxHeight) {
+            width = Math.round((width * maxHeight) / height);
+            height = maxHeight;
+          }
+        }
+
+        canvas.width = width;
+        canvas.height = height;
+        const ctx = canvas.getContext('2d');
+        if (!ctx) {
+          resolve(event.target?.result as string); // fallback to original base64
+          return;
+        }
+
+        ctx.drawImage(img, 0, 0, width, height);
+        const compressedBase64 = canvas.toDataURL('image/jpeg', quality);
+        resolve(compressedBase64);
+      };
+      img.onerror = (err) => reject(err);
+    };
+    reader.onerror = (err) => reject(err);
+  });
+};
+
 // Helper to generate HMAC-SHA1 signature locally in browser using Web Crypto API
 const generateLocalSignature = async (token: string, expire: number, privateKey: string): Promise<string> => {
   const text = token + expire;
@@ -110,6 +154,27 @@ export const ImageKitUploader: React.FC<ImageKitUploaderProps> = ({
     const urlEndpoint = import.meta.env.VITE_IMAGEKIT_URL_ENDPOINT;
     const privateKey = import.meta.env.VITE_IMAGEKIT_PRIVATE_KEY;
 
+    const triggerLocalFallback = async (reason: string) => {
+      console.warn(`Real ImageKit upload failed (${reason}), falling back to local compressed base64 processor.`);
+      try {
+        const toastId = toast.loading('Processing image locally (fallback mode)...');
+        const base64Url = await compressImage(file);
+        setIsUploading(false);
+        onUploadSuccess({
+          url: base64Url,
+          fileId: `base64-${Date.now()}`,
+          thumbnailUrl: base64Url,
+        });
+        toast.success('Image processed and attached locally!', { id: toastId });
+      } catch (compressErr: any) {
+        console.error('Local compression failed:', compressErr);
+        setIsUploading(false);
+        const errMsg = compressErr.message || 'Local compression failed';
+        toast.error(`Failed to process image locally: ${errMsg}`);
+        if (onUploadError) onUploadError(errMsg);
+      }
+    };
+
     try {
       let authData: { token: string; expire: number; signature: string };
 
@@ -156,8 +221,8 @@ export const ImageKitUploader: React.FC<ImageKitUploaderProps> = ({
       };
 
       xhr.onload = () => {
-        setIsUploading(false);
         if (xhr.status >= 200 && xhr.status < 300) {
+          setIsUploading(false);
           const response = JSON.parse(xhr.responseText);
           onUploadSuccess({
             url: response.url,
@@ -165,26 +230,17 @@ export const ImageKitUploader: React.FC<ImageKitUploaderProps> = ({
             thumbnailUrl: response.thumbnailUrl,
           });
         } else {
-          const errText = `Upload failed with status ${xhr.status}`;
-          toast.error(errText);
-          if (onUploadError) onUploadError(errText);
+          triggerLocalFallback(`status ${xhr.status}`);
         }
       };
 
       xhr.onerror = () => {
-        setIsUploading(false);
-        const errText = 'Network error during media upload.';
-        toast.error(errText);
-        if (onUploadError) onUploadError(errText);
+        triggerLocalFallback('network error');
       };
 
       xhr.send(formData);
     } catch (err: any) {
-      console.error('Real ImageKit upload failed:', err);
-      setIsUploading(false);
-      const errMsg = err.message || 'Signature generation error.';
-      toast.error(`Image upload failed: ${errMsg}. Please configure VITE_IMAGEKIT_PRIVATE_KEY in Vercel or deploy the Supabase imagekit-auth edge function.`);
-      if (onUploadError) onUploadError(errMsg);
+      triggerLocalFallback(err.message || 'setup error');
     }
   };
 
