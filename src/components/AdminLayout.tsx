@@ -81,7 +81,7 @@ export const AdminLayout: React.FC<AdminLayoutProps> = ({ children }) => {
     { name: 'Reviews', icon: <MessageSquare className="h-5 w-5" />, path: '/admin/reviews' },
 
 
-    { name: 'Site Settings', icon: <Settings className="h-5 w-5" />, path: '/admin/settings', adminOnly: true },
+    { name: 'Site Settings', icon: <Settings className="h-5 w-5" />, path: '/admin/settings' },
     { name: 'Admin Users', icon: <Users className="h-5 w-5" />, path: '/admin/users', adminOnly: true },
   ];
 
