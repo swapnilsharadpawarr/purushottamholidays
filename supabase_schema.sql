@@ -329,7 +329,7 @@ insert into public.site_settings (
   '+919860361361',
   'purushottamholidays@gmail.com',
   'At Post Tala, Near Tala Fort, Raigad District, Maharashtra - 402111',
-  'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3789.7029315367675!2d73.1234567!3d18.1234567!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMTjCsDA3JzI0LjUiTiA3M8KwMDcnMjQuNSJFCg!5e0!3m2!1sen!2sin!4v1680000000000!5m2!1sen!2sin',
+  'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d328.1808724950897!2d73.14159404863503!3d18.298300825179485!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3be83916d0e6a543%3A0xa15e4a9d982b6e5c!2zQXJ2aSBOdXJzZXJ5IC0g4KSG4KSw4KWN4KS14KWAIOCksOCli-CkquCkteCkvuCkn-Ckv-CkleCkvg!5e1!3m2!1sen!2sin!4v1781680112311!5m2!1sen!2sin',
   'https://maps.app.goo.gl/y5R34J21H9x8z7A6',
   'https://facebook.com/purushottamholidays',
   'https://instagram.com/purushottam_holiday_homestay',
