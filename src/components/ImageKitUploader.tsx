@@ -1,6 +1,8 @@
 import React, { useState, useRef } from 'react';
 import { Upload, X, Image as ImageIcon, Loader2 } from 'lucide-react';
+import { toast } from 'sonner';
 import { isDbConfigured } from '../lib/supabase';
+
 
 interface UploadResult {
   url: string;
@@ -164,6 +166,7 @@ export const ImageKitUploader: React.FC<ImageKitUploaderProps> = ({
           });
         } else {
           const errText = `Upload failed with status ${xhr.status}`;
+          toast.error(errText);
           if (onUploadError) onUploadError(errText);
         }
       };
@@ -171,13 +174,17 @@ export const ImageKitUploader: React.FC<ImageKitUploaderProps> = ({
       xhr.onerror = () => {
         setIsUploading(false);
         const errText = 'Network error during media upload.';
+        toast.error(errText);
         if (onUploadError) onUploadError(errText);
       };
 
       xhr.send(formData);
     } catch (err: any) {
-      console.warn('Real ImageKit upload failed, falling back to simulated demo upload.', err);
-      simulateDemoUpload(file);
+      console.error('Real ImageKit upload failed:', err);
+      setIsUploading(false);
+      const errMsg = err.message || 'Signature generation error.';
+      toast.error(`Image upload failed: ${errMsg}. Please configure VITE_IMAGEKIT_PRIVATE_KEY in Vercel or deploy the Supabase imagekit-auth edge function.`);
+      if (onUploadError) onUploadError(errMsg);
     }
   };
 
