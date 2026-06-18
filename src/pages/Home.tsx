@@ -610,7 +610,9 @@ export const Home: React.FC = () => {
             Near Tala Fort, Raigad, Maharashtra. Easily reachable by car from Mumbai & Pune.
           </p>
           <a
-            href={settings.google_maps_directions_url || `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(settings.address || 'Purushottam Holiday Homestay Tala Raigad')}`}
+            href={(!settings.google_maps_directions_url || settings.google_maps_directions_url === 'https://maps.app.goo.gl/y5R34J21H9x8z7A6')
+              ? `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(settings.address || 'Purushottam Holiday Homestay Tala Raigad')}`
+              : settings.google_maps_directions_url}
             target="_blank"
             rel="noopener noreferrer"
             className="flex items-center justify-center space-x-1 px-4 py-2 bg-forest-700 hover:bg-forest-850 text-white rounded-lg text-xs font-bold transition-all shadow-md cursor-pointer"

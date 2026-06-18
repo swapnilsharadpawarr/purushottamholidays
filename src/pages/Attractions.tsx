@@ -125,7 +125,9 @@ export const Attractions: React.FC = () => {
             />
             <div className="absolute inset-0 bg-gradient-to-t from-forest-950/80 to-transparent flex items-end p-4">
               <a
-                href={settings.google_maps_directions_url || `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(settings.address || 'Purushottam Holiday Homestay Tala Raigad')}`}
+                href={(!settings.google_maps_directions_url || settings.google_maps_directions_url === 'https://maps.app.goo.gl/y5R34J21H9x8z7A6')
+                  ? `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(settings.address || 'Purushottam Holiday Homestay Tala Raigad')}`
+                  : settings.google_maps_directions_url}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="w-full py-2 bg-amber-gold hover:bg-amber-gold-dark text-forest-950 rounded-xl text-xs font-bold text-center transition-all shadow-md cursor-pointer"
