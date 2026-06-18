@@ -51,12 +51,20 @@ export const Layout: React.FC<LayoutProps> = ({ children }) => {
       <header className="sticky top-0 z-40 bg-white/85 backdrop-blur-md border-b border-forest-100/50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
           {/* Logo & Property Name */}
-          <Link to="/" className="flex items-center py-2">
+          <Link to="/" className="flex items-center space-x-3 py-2 group">
             <img 
               src="/logo.png" 
               alt={settings.property_name || "Purushottam Holidays"} 
-              className="h-14 sm:h-16 w-auto object-contain transition-transform duration-300 hover:scale-[1.03]" 
+              className="h-12 sm:h-14 w-auto object-contain transition-transform duration-300 group-hover:scale-[1.03]" 
             />
+            <div className="flex flex-col transition-all duration-300 group-hover:translate-x-0.5">
+              <span className="text-sm sm:text-base md:text-lg font-serif font-black tracking-wider text-forest-800 uppercase leading-none">
+                {settings.property_name ? settings.property_name.split(' ')[0] : 'Purushottam'}
+              </span>
+              <span className="text-[9px] sm:text-[10px] md:text-xs font-sans tracking-[0.2em] text-amber-gold font-bold uppercase mt-1 leading-none">
+                {settings.property_name ? settings.property_name.split(' ').slice(1).join(' ') : 'Holidays'}
+              </span>
+            </div>
           </Link>
 
           {/* Desktop Nav */}
