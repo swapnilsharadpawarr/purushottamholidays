@@ -174,9 +174,11 @@ export const Layout: React.FC<LayoutProps> = ({ children }) => {
           {/* Logo & Contact details */}
           <div className="space-y-4">
             <div className="flex items-center space-x-3">
-              <div className="h-10 w-10 rounded-full bg-forest-700 border border-amber-gold flex items-center justify-center">
-                <span className="text-lg font-serif font-bold text-amber-gold">P</span>
-              </div>
+              <img 
+                src="/logo.png" 
+                alt={settings.property_name || "Purushottam Holidays"} 
+                className="h-10 sm:h-12 w-auto object-contain" 
+              />
               <h3 className="text-lg font-serif font-bold text-white uppercase tracking-wider">
                 {settings.property_name}
               </h3>
