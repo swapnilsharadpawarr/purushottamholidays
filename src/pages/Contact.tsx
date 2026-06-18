@@ -105,7 +105,7 @@ export const Contact: React.FC = () => {
                   {settings.address}
                 </span>
                 <a
-                  href={settings.google_maps_directions_url}
+                  href={settings.google_maps_directions_url || `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(settings.address || 'Purushottam Holiday Homestay Tala Raigad')}`}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="mt-4 text-xs font-bold text-amber-gold-dark hover:text-forest-700 transition-colors flex items-center"

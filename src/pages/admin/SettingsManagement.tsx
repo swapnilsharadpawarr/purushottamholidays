@@ -74,7 +74,7 @@ export const SettingsManagement: React.FC = () => {
       const { error } = await supabase
         .from('site_settings')
         .update(payload)
-        .eq('id', settings.id);
+        .eq('id', settings.id || 1);
       if (error) throw error;
     },
     onSuccess: () => {

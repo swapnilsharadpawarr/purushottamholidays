@@ -125,7 +125,7 @@ export const Attractions: React.FC = () => {
             />
             <div className="absolute inset-0 bg-gradient-to-t from-forest-950/80 to-transparent flex items-end p-4">
               <a
-                href={settings.google_maps_directions_url}
+                href={settings.google_maps_directions_url || `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(settings.address || 'Purushottam Holiday Homestay Tala Raigad')}`}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="w-full py-2 bg-amber-gold hover:bg-amber-gold-dark text-forest-950 rounded-xl text-xs font-bold text-center transition-all shadow-md cursor-pointer"

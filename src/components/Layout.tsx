@@ -264,7 +264,7 @@ export const Layout: React.FC<LayoutProps> = ({ children }) => {
               <div className="text-center p-3">
                 <p className="mb-2 font-medium">Located near Tala Fort</p>
                 <a
-                  href={settings.google_maps_directions_url}
+                  href={settings.google_maps_directions_url || `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(settings.address || 'Purushottam Holiday Homestay Tala Raigad')}`}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="px-3 py-1.5 bg-amber-gold text-forest-900 rounded font-semibold inline-block hover:bg-amber-gold-dark transition-colors"

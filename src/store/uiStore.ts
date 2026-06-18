@@ -101,6 +101,16 @@ export const useUIStore = create<UIStore>((set, get) => ({
   fetchSettings: async () => {
     set({ settingsLoading: true });
     if (!isDbConfigured()) {
+      const localSettings = localStorage.getItem('demo_settings');
+      if (localSettings) {
+        try {
+          const parsed = JSON.parse(localSettings);
+          set({ settings: { ...mockSiteSettings, ...parsed }, settingsLoading: false });
+          return;
+        } catch (e) {
+          console.error('Failed to parse demo_settings from localStorage', e);
+        }
+      }
       set({ settings: mockSiteSettings, settingsLoading: false });
       return;
     }

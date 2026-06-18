@@ -11,7 +11,7 @@ export const FAB: React.FC = () => {
   const whatsappLink = `https://wa.me/${settings.whatsapp_number.replace(/\+/g, '')}?text=${encodeURIComponent(
     'Hello, I want to book a room or make an inquiry at Purushottam Holiday Homestay.'
   )}`;
-  const mapsLink = settings.google_maps_directions_url;
+  const mapsLink = settings.google_maps_directions_url || `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(settings.address || 'Purushottam Holiday Homestay Tala Raigad')}`;
 
   return (
     <div className="fixed bottom-6 right-6 z-50 flex flex-col items-end space-y-3">
