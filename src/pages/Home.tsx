@@ -275,7 +275,7 @@ export const Home: React.FC = () => {
       {/* 1. HERO SECTION */}
       <section className="relative h-[90vh] min-h-[600px] w-full flex items-center justify-center overflow-hidden">
         {/* Background media slider */}
-        <div className="absolute inset-0 bg-forest-950 z-0">
+        <div className="absolute inset-0 z-0">
           {banners.length > 0 ? (
             <div className="absolute inset-0">
               <AnimatePresence initial={false}>
@@ -284,7 +284,7 @@ export const Home: React.FC = () => {
                     <motion.div
                       key={banner.id}
                       initial={{ opacity: 0, scale: 1.05 }}
-                      animate={{ opacity: 0.45, scale: 1 }}
+                      animate={{ opacity: 1, scale: 1 }}
                       exit={{ opacity: 0, scale: 0.95 }}
                       transition={{ duration: 1.2, ease: 'easeInOut' }}
                       className="absolute inset-0"
@@ -306,23 +306,21 @@ export const Home: React.FC = () => {
               loop
               muted
               playsInline
-              className="h-full w-full object-cover opacity-45"
+              className="h-full w-full object-cover"
             />
           ) : (
             <div className="absolute inset-0">
               <img
                 src="https://images.unsplash.com/photo-1540555700478-4be289fbecef?w=1920&q=80"
                 alt="Purushottam Homestay"
-                className="h-full w-full object-cover opacity-50"
+                className="h-full w-full object-cover"
               />
             </div>
           )}
-          {/* Subtle gradient overlay */}
-          <div className="absolute inset-0 bg-gradient-to-t from-forest-950 via-forest-900/50 to-transparent z-10" />
         </div>
 
         {/* Text details */}
-        <div className="relative z-20 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center text-white space-y-6">
+        <div className="relative z-20 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center text-white space-y-6 drop-shadow-[0_2px_8px_rgba(0,0,0,0.8)]">
           <AnimatePresence mode="wait">
             <motion.div
               key={currentSlide}

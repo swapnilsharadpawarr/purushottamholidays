@@ -170,7 +170,7 @@ export const Layout: React.FC<LayoutProps> = ({ children }) => {
 
       {/* Footer */}
       <footer className="bg-forest-800 text-forest-100 border-t border-forest-700 pt-16 pb-8">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-12">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
           {/* Logo & Contact details */}
           <div className="space-y-4">
             <div className="flex items-center space-x-3">
@@ -252,29 +252,6 @@ export const Layout: React.FC<LayoutProps> = ({ children }) => {
                 <span className="leading-relaxed">{settings.address}</span>
               </li>
             </ul>
-          </div>
-
-          {/* Map Teaser / Directions */}
-          <div className="space-y-4">
-            <h4 className="text-sm font-bold text-white tracking-widest uppercase mb-4 border-l-2 border-amber-gold pl-2">
-              Directions
-            </h4>
-            <div className="h-32 rounded-xl overflow-hidden border border-forest-700/60 shadow-inner bg-forest-900 flex items-center justify-center text-xs text-forest-400">
-              {/* Fallback mock map visual */}
-              <div className="text-center p-3">
-                <p className="mb-2 font-medium">Located near Tala Fort</p>
-                <a
-                  href={(!settings.google_maps_directions_url || settings.google_maps_directions_url === 'https://maps.app.goo.gl/y5R34J21H9x8z7A6')
-                    ? `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(settings.address || 'Purushottam Holiday Homestay Tala Raigad')}`
-                    : settings.google_maps_directions_url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="px-3 py-1.5 bg-amber-gold text-forest-900 rounded font-semibold inline-block hover:bg-amber-gold-dark transition-colors"
-                >
-                  Get GPS Route
-                </a>
-              </div>
-            </div>
           </div>
         </div>
 
