@@ -258,9 +258,21 @@ export const Layout: React.FC<LayoutProps> = ({ children }) => {
         {/* Copyright info */}
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 border-t border-forest-700/50 pt-8 flex flex-col md:flex-row justify-between items-center text-xs text-forest-400">
           <p>© 2026 Purushottam Holiday Homestay. All Rights Reserved.</p>
-          <p className="mt-2 md:mt-0">
-            Crafted for premium holiday experiences near Tala Fort.
-          </p>
+          <div className="mt-2 md:mt-0 flex flex-col md:flex-row items-center md:space-x-4 space-y-1 md:space-y-0 text-center md:text-right">
+            <span>Crafted for premium holiday experiences near Tala Fort.</span>
+            <span className="hidden md:inline text-forest-600">|</span>
+            <span>
+              Developed by{' '}
+              <a
+                href="http://swapnilpawar.vercel.app/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-amber-gold hover:text-amber-400 font-semibold transition-colors"
+              >
+                Swapnil
+              </a>
+            </span>
+          </div>
         </div>
       </footer>
       <FAB />
